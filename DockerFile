@@ -1,0 +1,15 @@
+# Use a high-quality PyTorch base image
+FROM runpod/pytorch:2.2.1-py3.10-cuda12.1.1-devel-ubuntu22.04
+
+# Set the working directory
+WORKDIR /
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy your handler script
+COPY handler.py .
+
+# Command to run the worker
+CMD [ "python", "-u", "/handler.py" ]
