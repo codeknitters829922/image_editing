@@ -1,0 +1,8 @@
+{
+  "input": {
+    "prompt": "Turn this cat into a dog",
+    "image_url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png",
+    "num_inference_steps": 4,
+    "guidance_scale": 3.5
+  }
+}
