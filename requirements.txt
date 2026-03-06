@@ -5,4 +5,4 @@ accelerate
 sentencepiece
 protobuf
 Pillow
-torch
+# REMOVE torch — it's already in the base image
