@@ -18,7 +18,7 @@ try:
     pipe = Flux2KleinPipeline.from_pretrained(
         MODEL_ID,
         torch_dtype=torch.bfloat16, 
-        device_map="auto"
+        device_map="balanced"
     )
     
     # CRITICAL: For 24GB GPUs (4090/3090), use this to make it fast!
