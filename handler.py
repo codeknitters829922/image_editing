@@ -18,7 +18,7 @@ try:
     pipe = DiffusionPipeline.from_pretrained(
         MODEL_ID,
         dtype=torch.bfloat16,
-        device_map="cuda",
+        device_map="auto",
         token=HF_TOKEN,
     )
     print("[4] Pipeline loaded successfully")
