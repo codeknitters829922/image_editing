@@ -48,7 +48,7 @@ def handler(event):
     else:
         return {"error": "Provide image_url or image_b64"}
 
-    print("[handler] Running inference...")
+    print("[handler] Running inference....")
     result = pipe(
         image=input_image,
         prompt=prompt,
