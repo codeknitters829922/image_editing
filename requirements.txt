@@ -1,8 +1,7 @@
 runpod
-diffusers>=0.31.0
+diffusers==0.30.3
 transformers
 accelerate
 sentencepiece
 protobuf
 Pillow
-# REMOVE torch — it's already in the base image
