@@ -1,3 +1,11 @@
+import os
+
+# DO THIS FIRST - Before importing diffusers or transformers
+os.environ["HF_HOME"] = "/runpod-volume/huggingface"
+os.environ["HF_HUB_CACHE"] = "/runpod-volume/huggingface"
+
+# Ensure the directory exists
+os.makedirs("/runpod-volume/huggingface", exist_ok=True)
 import runpod
 import torch
 import base64
