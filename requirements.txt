@@ -1,9 +1,4 @@
 runpod
-diffusers
 transformers
 accelerate
-sentencepiece
-protobuf
 Pillow
-torchvision
-optimum-quanto

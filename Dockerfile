@@ -1,12 +1,23 @@
-FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-devel
+# Use a slim Python 3.10 image to save space
+FROM python:3.10-slim
 
 WORKDIR /app
 
-# 1. Install dependencies FIRST (This layer is cached)
+# Install git (required to install diffusers from GitHub)
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
+# 1. Install PyTorch with CUDA 12.4
+RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+# 2. Install diffusers from git main (Critical for Flux.2 Klein)
+RUN pip install --no-cache-dir git+https://github.com/huggingface/diffusers.git
+
+# 3. Install the rest of the dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 2. Copy code LAST (Only this layer changes when you edit code)
+# Copy your serverless handler script
 COPY handler.py .
 
-CMD ["python", "-u", "handler.py"]
+# Start the RunPod serverless handler
+CMD["python", "-u", "handler.py"]
