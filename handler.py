@@ -5,7 +5,8 @@ import runpod
 from PIL import Image
 from diffusers import DiffusionPipeline
 from diffusers.utils import load_image
-
+import os
+hf_token = os.environ.get("HF_TOKEN")  # ✅ GOOD: Safe to commit
 # ----------------------------------------------------------------------------
 # 1. Load the model in global scope for warm starts
 # ----------------------------------------------------------------------------
@@ -13,7 +14,8 @@ from diffusers.utils import load_image
 pipe = DiffusionPipeline.from_pretrained(
     "black-forest-labs/FLUX.2-klein-9b-fp8", 
     torch_dtype=torch.bfloat16, 
-    device_map="cuda"
+    device_map="cuda",
+    hf_token=hf_token
 )
 
 # Optional helper to handle both URLs and base64 string images
@@ -72,4 +74,4 @@ def handler(job):
 # 3. Start the Serverless Worker
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
-    runpod.serverless.start({"handler": handler})
+    runpod.serverless.start({"handler": handler})s
