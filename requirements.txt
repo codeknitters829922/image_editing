@@ -1,5 +1,5 @@
 runpod
-diffusers==0.30.3
+diffusers
 transformers
 accelerate
 sentencepiece
