@@ -74,4 +74,4 @@ def handler(job):
 # 3. Start the Serverless Worker
 # ----------------------------------------------------------------------------
 if __name__ == "__main__":
-    runpod.serverless.start({"handler": handler})s
+    runpod.serverless.start({"handler": handler})
