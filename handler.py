@@ -3,20 +3,26 @@ import base64
 import torch
 import runpod
 from PIL import Image
-from diffusers import DiffusionPipeline
 from diffusers.utils import load_image
 import os
 hf_token = os.environ.get("HF_TOKEN")  # ✅ GOOD: Safe to commit
-# ----------------------------------------------------------------------------
-# 1. Load the model in global scope for warm starts
-# ----------------------------------------------------------------------------
-# Note: changed `dtype` to `torch_dtype` as expected by diffusers
-pipe = DiffusionPipeline.from_pretrained(
-    "black-forest-labs/FLUX.2-klein-9b-fp8", 
-    torch_dtype=torch.bfloat16, 
-    device_map="cuda",
-    hf_token=hf_token
+from diffusers import Flux2KleinPipeline, FluxTransformer2DModel
+
+# Load base structure (text encoder, vae, etc.)
+pipe = Flux2KleinPipeline.from_pretrained(
+    "black-forest-labs/FLUX.2-klein-9B",
+    torch_dtype=torch.bfloat16,
 )
+
+# Load only the FP8 transformer weights
+transformer_fp8 = FluxTransformer2DModel.from_single_file(
+    "https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8/resolve/main/flux-2-klein-9b-fp8.safetensors",
+    torch_dtype=torch.bfloat16,
+)
+
+pipe.transformer = transformer_fp8.to("cuda")  # or device_map
+
+pipe.enable_model_cpu_offload()
 
 # Optional helper to handle both URLs and base64 string images
 def parse_input_image(image_str):
