@@ -20,4 +20,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY handler.py .
 
 # Start the RunPod serverless handler
-CMD["python", "-u", "handler.py"]
+CMD ["python", "-u", "handler.py"]
